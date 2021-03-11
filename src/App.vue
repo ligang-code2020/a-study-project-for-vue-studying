@@ -1,17 +1,55 @@
 <template>
   <div class="container">
-    <Header></Header>
+    <Header title="Task Tracker"></Header>
+    <Tasks :tasks="tasks"></Tasks>
   </div>
 </template>
 
 <script>
 //导入
+/*
+App.vue是主组件;
+Header.vue是App.vue的一号子组件;
+Button.vue是header.vue的子组件;
+Tasks.vue是App.vue的二号子组件;
+Task.vue是Tasks.vue的子组件;
+*/
 import Header from "./components/Header";
+import Tasks from "./components/Tasks"
 
 export default {
   name: "App",
+  //局部注册组件，可在App.vue中使用注册的组件
   components: {
     Header,
+    Tasks
+  },
+  data() {
+    return {
+      tasks: [], 
+    };
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: "吃饭",
+        day: "2021-01-17",
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: "睡觉",
+        day: "2021-02-17",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: "打豆豆",
+        day: "2021-02-26",
+        reminder: false,
+      },
+    ];
   },
 };
 </script>

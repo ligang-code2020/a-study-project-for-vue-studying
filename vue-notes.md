@@ -14,8 +14,9 @@
 ```
 ---
 ### Vue项目结构
-> ``index.html ``是主页，项目入口  
+> ``index.html`` 是主页，项目入口  
 
-> ``App.vue ``是根组件  
+> ``App.vue`` 是根组件  
 
-> ``main.js ``入口文件  
+> ``main.js`` 入口文件  
+
