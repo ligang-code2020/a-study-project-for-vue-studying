@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"></Header>
-    <Tasks :tasks="tasks"></Tasks>
+    <Tasks :tasks="tasks" @delete-task="deleteTask" @toggle-reminder="toggleReminder"></Tasks>
   </div>
 </template>
 
@@ -15,19 +15,32 @@ Tasks.vue是App.vue的二号子组件;
 Task.vue是Tasks.vue的子组件;
 */
 import Header from "./components/Header";
-import Tasks from "./components/Tasks"
+import Tasks from "./components/Tasks";
 
 export default {
   name: "App",
   //局部注册组件，可在App.vue中使用注册的组件
   components: {
     Header,
-    Tasks
+    Tasks,
   },
   data() {
     return {
-      tasks: [], 
+      tasks: [],
     };
+  },
+  methods: {
+    deleteTask(id) {
+      //fliter
+      if (confirm("Are you sure?")) {
+        this.tasks = this.tasks.filter((item) => {
+          return item.id !== id;
+        });
+      }
+    },
+    toggleReminder(id){
+      console.log(id);
+    }
   },
   created() {
     this.tasks = [

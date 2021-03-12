@@ -1,16 +1,17 @@
 <template>
-  <div :class="[task.reminder ? 'reminder': '','task']">
-    <h3>{{ task.text }}
-        <i class="fas fa-times"></i>
+  <div @dblclick="$emit('toggle-reminder',task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
+    <h3>
+      {{ task.text }}
+      <i class="fas fa-times" @click="$emit('delete-task',task.id)"></i>  
     </h3>
-    <p>{{task.day}}</p>
+    <p>{{ task.day }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "Task",
-  //接受父组件(Task.vue)传过来的值.
+  //接受父组件(Tasks.vue)传过来的值.
   props: {
     task: Object,
   },
