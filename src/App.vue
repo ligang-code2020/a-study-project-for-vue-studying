@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"></Header>
-    <Tasks :tasks="tasks" @delete-task="deleteTask" @toggle-reminder="toggleReminder"></Tasks>
+    <AddTask @add-task="addTask"></AddTask>
+    <Tasks
+      :tasks="tasks"
+      @delete-task="deleteTask"
+      @toggle-reminder="toggleReminder"
+    ></Tasks>
   </div>
 </template>
 
@@ -16,6 +21,7 @@ Task.vue是Tasks.vue的子组件;
 */
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
@@ -23,6 +29,7 @@ export default {
   components: {
     Header,
     Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -30,6 +37,11 @@ export default {
     };
   },
   methods: {
+    addTask(task) {
+      // ...this.tasks是用来展开数组
+      this.tasks = [...this.tasks, task]  //等价于 this.tasks.push(task)
+      
+    },
     deleteTask(id) {
       //fliter
       if (confirm("Are you sure?")) {
@@ -38,9 +50,12 @@ export default {
         });
       }
     },
-    toggleReminder(id){
-      console.log(id);
-    }
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        //{ ...task, reminder: !task.reminder }为对象新增属性
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    },
   },
   created() {
     this.tasks = [
