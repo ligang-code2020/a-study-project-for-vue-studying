@@ -1,7 +1,14 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"></Header>
-    <AddTask @add-task="addTask"></AddTask>
+    <Header
+      title="Task Tracker"
+      @show-addtask="showaddtask"
+      :showAddTask="showAddTask"
+    ></Header>
+    <div v-if="showAddTask">
+      <AddTask @add-task="addTask"></AddTask>
+    </div>
+
     <Tasks
       :tasks="tasks"
       @delete-task="deleteTask"
@@ -34,13 +41,23 @@ export default {
   data() {
     return {
       tasks: [],
+      showAddTask: true,
     };
   },
   methods: {
+    async fetchTasks() {
+      const res = await fetch("http://localhost:3002/tasks");
+      const data = await res.json();
+      return data;
+    },
+
+    showaddtask() {
+      this.showAddTask = !this.showAddTask;
+    },
+
     addTask(task) {
       // ...this.tasks是用来展开数组
-      this.tasks = [...this.tasks, task]  //等价于 this.tasks.push(task)
-      
+      this.tasks = [...this.tasks, task]; //等价于 this.tasks.push(task)
     },
     deleteTask(id) {
       //fliter
@@ -57,27 +74,8 @@ export default {
       );
     },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "吃饭",
-        day: "2021-01-17",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "睡觉",
-        day: "2021-02-17",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "打豆豆",
-        day: "2021-02-26",
-        reminder: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks()
   },
 };
 </script>

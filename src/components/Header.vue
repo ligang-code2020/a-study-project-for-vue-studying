@@ -1,14 +1,16 @@
 <template>
   <header>
-    <h1>{{title}}</h1>
-    <Button text="Add Task" color="green"></Button>
+    <h1>{{ title }}</h1>
+    <Button
+      :text="showAddTask ? 'Close' : 'Add Task'"
+      :color="showAddTask ? 'red' : 'green'"
+      @show-addtask="$emit('show-addtask')"
+    ></Button>
   </header>
 </template>
 
 <script>
-import Button from "./Button"
-
-
+import Button from "./Button";
 
 //导出
 export default {
@@ -17,23 +19,20 @@ export default {
 
   //静态声明父组件传给子组件的值
   props: {
-    title: {
-      type: String,
-    },
+    title: String,
+    showAddTask: Boolean,
   },
-  components:{
-    Button
-    
-  }
+  components: {
+    Button,
+  },
 };
 </script>
 
 <style scoped>
-header{
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  
 }
 </style>
