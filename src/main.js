@@ -3,6 +3,9 @@ import App from "./App.vue";
 import Header from "./components/Header";
 import axios from 'axios'
 
+// 导入路由
+// import router from './router'
+
 Vue.config.productionTip = false;
 
 //全局注册组件
