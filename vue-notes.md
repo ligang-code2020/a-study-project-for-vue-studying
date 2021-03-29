@@ -197,7 +197,7 @@ this.$route.query.userid
 
 </br>
 
-![avatar](src\images\props&emit.png)
+![avatar](https://upload-images.jianshu.io/upload_images/2891127-591b88f49fb05f19.png)
 
 父组件通过 props 传值给子组件，子组件通过 emit(自定义事件)传值给父组件
 
@@ -206,6 +206,8 @@ this.$route.query.userid
 > > > 子组件通过 props 接受从父组件传来的值,而且是单项数据流动,可以继续传入子孙组件,但是不可以逆向传值。
 
 ```html
+第三层组件Task.vue
+
 <template>
   <div>
     {task.id} {task.title}
@@ -216,7 +218,7 @@ this.$route.query.userid
 <script>
   export default{
     props:{
-      // 定义task的类型
+      // 定义task的类型,接收父组件Tasks.vue的值
       task:{
         type:Object
         // 可以定义默认值
@@ -224,6 +226,42 @@ this.$route.query.userid
       }
     }
   }
+</script>
+
+--------------------------------------------------- 
+第二层组件Tasks.vue
+
+<template>
+  <div>
+    // task相当于Task组件的一个属性
+    <Task :task="item"> </Task>
+  </div>
+</template>
+
+<script>
+  export default {
+    // 定义tasks接收父组件Home.vue的值
+    props: {
+      tasks: Array,
+    },
+  };
+</script>
+
+------------------------------------------------ 
+第一层组件Home.vue
+<template>
+  // tasks相当于Tasks的一个属性
+  <Tasks :tasks="tasks"> </Tasks>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        tasks: [],
+      };
+    },
+  };
 </script>
 ```
 
@@ -241,6 +279,7 @@ this.$route.query.userid
   <div @dbclick="$emit('delete-task',task.id)"></div>
 </template>
 
+--------------------------------------------
 第二层组件(父) Task.vue
 
 <template>
@@ -254,8 +293,8 @@ this.$route.query.userid
     </Task>
   </div>
 </template>
-
-第三层组件(爷) Home.vue
+---------------------------------------------
+第一层组件(爷) Home.vue
 
 <template>
   <div>
@@ -265,7 +304,7 @@ this.$route.query.userid
     @toggle-reminder="toggleReminder"
     // 接收子组件自定义事件 delete-task
     @delete-task="deleteTask"
-    > 
+    >
     </Tasks>
   </div>
 </template>
