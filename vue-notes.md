@@ -86,8 +86,6 @@ new Vue({
 ```
 
 > ### 3. router 间的传参
->
->  </br>
 
 > > 1.声明式导航：`<router-link></router-link>`
 
@@ -189,6 +187,86 @@ this.$route.query.userid
 <template>
   <div>
     这是params传过来的参数：{{this.$route.query.userid}}
+  </div>
+</template>
+```
+
+> ### Vue 父子组件传值
+
+---
+
+</br>
+
+![avatar](src\images\props&emit.png)
+
+父组件通过 props 传值给子组件，子组件通过 emit(自定义事件)传值给父组件
+
+> > `props`
+> >
+> > > 子组件通过 props 接受从父组件传来的值,而且是单项数据流动,可以继续传入子孙组件,但是不可以逆向传值。
+
+```html
+<template>
+  <div>
+    {task.id} {task.title}
+  </div>
+  <div :class="task.reminder"></div>
+</template>
+
+<script>
+  export default{
+    props:{
+      // 定义task的类型
+      task:{
+        type:Object
+        // 可以定义默认值
+        default:'eating'
+      }
+    }
+  }
+</script>
+```
+
+> > `emit`
+> >
+> > > 子组件通过 emit 自定义事件传值给父组件
+
+```html
+第三层组件(孙) Task.vue
+
+<template>
+  // toggle-reminder为自定义事件，task.id为传替参数，向上传递
+  <div @click="$emit('toggle-reminder',task.id)"></div>
+  // delete-task为自定义事件，task.id为参数
+  <div @dbclick="$emit('delete-task',task.id)"></div>
+</template>
+
+第二层组件(父) Task.vue
+
+<template>
+  <div>
+    <Task
+      :task="item"
+      // 接收子组件自定义事件 toggle-reminder
+      @toggle-reminder="$emit('toggle-reminder',item.id)"
+      // 接收子组件自定义事件 delete-task
+      @delete-task="$emit('delete-task',item.id)">
+    </Task>
+  </div>
+</template>
+
+第三层组件(爷) Home.vue
+
+<template>
+  <div>
+    <Tasks
+    :tasks="tasks"
+    // 接收子组件自定义事件 toggle-reminder
+    @toggle-reminder="toggleReminder"
+    // 接收子组件自定义事件 delete-task
+    @delete-task="deleteTask"
+    > 
+    </Tasks>
   </div>
 </template>
 ```

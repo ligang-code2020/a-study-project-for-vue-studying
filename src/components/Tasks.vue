@@ -15,7 +15,7 @@
 import Task from "./Task";
 export default {
   name: "Tasks",
-  //接受App.vue(父组件)传来的值
+  //接受Home.vue(父组件)传来的值
   props: {
     tasks: Array,
   },
