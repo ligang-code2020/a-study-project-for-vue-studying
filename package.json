@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "json-server": "json-server --watch --port 3002 db.json",
     "lint": "vue-cli-service lint"
@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "element-ui": "^2.15.5",
+    "file-saver": "^2.0.5",
     "json-server": "^0.16.3",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5"
@@ -22,7 +24,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "script-loader": "^0.7.2",
+    "vue-template-compiler": "^2.6.11",
+    "xlsx": "^0.17.0"
   },
   "eslintConfig": {
     "root": true,
@@ -36,7 +40,17 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "generator-star-spacing": "off",
+      "no-tabs": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "no-irregular-whitespace": "off",
+      "no-debugger": "off"
+    },
+    "globals": {
+      "error": true
+    }
   },
   "browserslist": [
     "> 1%",

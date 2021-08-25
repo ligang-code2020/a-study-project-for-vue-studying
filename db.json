@@ -1,16 +1,16 @@
 {
   "tasks": [
     {
-      "text": "watching a movie",
-      "day": "today",
-      "reminder": true,
-      "id": "lwf4jJ1"
-    },
-    {
       "text": "eating lunch",
       "day": "2020/12/29",
       "reminder": false,
       "id": "ArCbLWO"
+    },
+    {
+      "text": "ligang",
+      "day": "22",
+      "reminder": false,
+      "id": "pQP85MY"
     }
   ],
   "posts": [
